@@ -3,6 +3,7 @@ import browser from "webextension-polyfill";
 
 export function createBindListItem(bind: Bind) {
   const li = document.createElement("li");
+  li.classList.add("bind__item");
   li.id = bind.id;
   const removeBtn = document.createElement("button");
   removeBtn.classList.add("bind__remove-btn");
@@ -19,7 +20,7 @@ export function createBindListItem(bind: Bind) {
   });
   li.appendChild(removeBtn);
   const span = document.createElement("span");
-  span.textContent = ` ${bind.elementSelector} - ${bind.key}`;
+  span.textContent = ` ${bind.key} - ${bind.elementSelector}`;
   li.appendChild(span);
   return li;
 }
