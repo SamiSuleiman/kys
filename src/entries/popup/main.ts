@@ -1,6 +1,6 @@
 import browser from "webextension-polyfill";
 import "./style.css";
-import { Bind } from "./model";
+import { Bind } from "../shared/model";
 import { createBindListItem } from "./helpers";
 
 populateBinds();
@@ -12,8 +12,8 @@ async function populateBinds() {
   const binds = await browser.storage.local.get("binds");
   const bindsListEl = document.querySelector(".binds__list");
 
-  if (binds.binds)
-    binds.binds.forEach((bind: Bind) =>
+  if (binds?.binds)
+    binds?.binds?.forEach((bind: Bind) =>
       bindsListEl?.appendChild(createBindListItem(bind)),
     );
 }
@@ -58,7 +58,7 @@ async function init() {
 
     const binds = await browser.storage.local.get("binds");
 
-    if (binds.binds.find((bind: Bind) => bind.key === keybindEl.value)) {
+    if (binds?.binds?.find((bind: Bind) => bind.key === keybindEl.value)) {
       errorEl.textContent = "Bind already exists";
       errorEl.classList.remove("hidden");
       return;

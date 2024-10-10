@@ -1,5 +1,5 @@
-import { Bind } from "./model";
 import browser from "webextension-polyfill";
+import { Bind } from "../shared/model";
 
 export function createBindListItem(bind: Bind) {
   const li = document.createElement("li");

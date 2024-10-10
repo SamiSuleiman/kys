@@ -1,9 +1,9 @@
 {
-  "name": "vite-web-extension",
+  "name": "samisuleiman-kys",
   "version": "1.0.0",
-  "displayName": "Vite Web Extension",
+  "displayName": "KYS",
   "author": "@samrum/vite-plugin-web-extension",
-  "description": "A @samrum/vite-plugin-web-extension web extension",
+  "description": "A Firefox extension that allows you to assign hotkeys for elements on a page by their selector.",
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",

@@ -1,16 +1,19 @@
-import renderContent from "../renderContent";
-import logo from "~/assets/logo.svg";
-import "./style.css";
+import browser from "webextension-polyfill";
+import { Bind } from "~/entries/shared/model";
 
-renderContent(
-  import.meta.PLUGIN_WEB_EXT_CHUNK_CSS_PATHS,
-  (appRoot: HTMLElement) => {
-    const logoImageUrl = new URL(logo, import.meta.url).href;
+init();
 
-    appRoot.innerHTML = `
-    <div class="logo">
-      <img src="${logoImageUrl}" height="50" alt="" />
-    </div>
-  `;
-  }
-);
+async function init() {
+  const binds = await browser.storage.local.get("binds");
+  document.addEventListener("keydown", (e) => {
+    const bound: Bind = binds?.binds?.find((bind: Bind) => bind.key === e.key);
+    console.log(bound);
+    if (!bound) return;
+
+    const el = document.querySelector(bound.elementSelector);
+    console.log(el);
+    if (!el) return;
+
+    (el as HTMLElement).click();
+  });
+}
