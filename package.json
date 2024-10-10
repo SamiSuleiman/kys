@@ -2,7 +2,7 @@
   "name": "samisuleiman-kys",
   "version": "1.0.0",
   "displayName": "KYS",
-  "author": "@samrum/vite-plugin-web-extension",
+  "author": "Sami Suleiman",
   "description": "A Firefox extension that allows you to assign hotkeys for elements on a page by their selector.",
   "type": "module",
   "scripts": {
@@ -10,7 +10,8 @@
     "watch": "vite build --watch --mode development --minify false",
     "dev": "vite",
     "serve:firefox": "web-ext run --start-url \"about:debugging#/runtime/this-firefox\"  --source-dir ./dist/",
-    "serve:chrome": "web-ext run -t chromium --start-url \"https://example.com\" --source-dir ./dist/"
+    "serve:chrome": "web-ext run -t chromium --start-url \"https://example.com\" --source-dir ./dist/",
+    "build:zip": "cd dist && web-ext build --overwrite-dest"
   },
   "license": "MIT",
   "devDependencies": {

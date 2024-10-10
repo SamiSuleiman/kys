@@ -6,8 +6,6 @@ import { createBindListItem } from "./helpers";
 populateBinds();
 init();
 
-// await browser.storage.local.set({ binds: [] });
-
 async function populateBinds() {
   const binds = await browser.storage.local.get("binds");
   const bindsListEl = document.querySelector(".binds__list");
@@ -23,9 +21,9 @@ async function init() {
     <div class="form">
       <div class="form__input__container">
         <input type="text" class="form__input-selector" placeholder="Selector" required></input>
-        <input type="text" class="form__input-keybind" placeholder="Keybind" required pattern="[A-Za-z0-9]{1}"></input>
-      </div>
+        <input type="text" class="form__input-keybind" placeholder="Keybind" required pattern="[A-Za-z0-9]{1,}"></input>
       <button class="form__add-btn" type="button">Add</button>
+      </div>
       <span class="form__error-msg hidden">Invalid input(s)</span>
     </div>
     <div class="binds__container">
@@ -64,10 +62,18 @@ async function init() {
       return;
     }
 
+    const currTab = (
+      await browser.tabs.query({ active: true, currentWindow: true })
+    ).find((tab) => tab.active);
+
+    // if (!currTab?.url) return;
+
+    const domain = new URL(currTab?.url ?? "")?.hostname;
     const newBind: Bind = {
       id: Math.random().toString(36),
       elementSelector: selectorEl.value,
       key: keybindEl.value,
+      domain,
     };
 
     const newBinds = binds.binds ? [...binds.binds, newBind] : [newBind];

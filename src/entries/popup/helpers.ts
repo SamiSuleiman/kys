@@ -20,7 +20,7 @@ export function createBindListItem(bind: Bind) {
   });
   li.appendChild(removeBtn);
   const span = document.createElement("span");
-  span.textContent = ` ${bind.key} - ${bind.elementSelector}`;
+  span.innerHTML = ` <div><strong>[</strong>${bind.key}<strong>]</strong> <strong>[</strong>"${bind.domain}"<strong>]</strong> <strong>[</strong>${bind.elementSelector}<strong>]</strong>`;
   li.appendChild(span);
   return li;
 }

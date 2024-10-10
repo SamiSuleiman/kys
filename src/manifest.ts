@@ -24,10 +24,10 @@ const manifest = {
     192: "icons/192.png",
     512: "icons/512.png",
   },
-  permissions: ["storage"],
+  permissions: ["storage", "activeTab"],
   browser_specific_settings: {
     gecko: {
-      id: "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}",
+      id: "kys@ext.samisul.com",
     },
   },
 };
