@@ -1,9 +1,9 @@
 {
   "name": "samisuleiman-kys",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "KYS",
   "author": "Sami Suleiman",
-  "description": "A Firefox extension that allows you to assign hotkeys for elements on a page by their selector.",
+  "description": "A Firefox add-on that allows you to assign hotkeys to elements on a page by their selector.",
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",

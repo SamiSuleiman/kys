@@ -11,6 +11,8 @@ const manifest = {
     default_icon: {
       16: "icons/16.png",
       32: "icons/32.png",
+      48: "icons/48.png",
+      96: "icons/96.png",
       180: "icons/180.png",
       192: "icons/192.png",
       512: "icons/512.png",
@@ -20,6 +22,8 @@ const manifest = {
   icons: {
     16: "icons/16.png",
     32: "icons/32.png",
+    48: "icons/48.png",
+    96: "icons/96.png",
     180: "icons/180.png",
     192: "icons/192.png",
     512: "icons/512.png",
