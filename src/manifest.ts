@@ -31,7 +31,7 @@ const manifest = {
   permissions: ["storage", "activeTab"],
   browser_specific_settings: {
     gecko: {
-      id: "kys@ext.samisul.com",
+      id: "kys@browser-ext.samisul.com",
     },
   },
 };
