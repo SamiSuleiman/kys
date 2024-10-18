@@ -19,6 +19,7 @@ button {
   border: none;
   padding: 0.5rem;
   cursor: pointer;
+  transition: background 0.2s;
 
   &:hover {
     background: #076678;
@@ -70,6 +71,8 @@ ul {
   display: flex;
   margin-bottom: 0.5rem;
   gap: 0.25rem;
+  flex-direction: column;
+  width: 600px;
 }
 
 .form__input__container {

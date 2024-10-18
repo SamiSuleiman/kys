@@ -3,16 +3,37 @@ import { Bind } from "~/entries/shared/model";
 
 init();
 
+let currentChord: string[] = [];
+
 async function init() {
-  const binds = await browser.storage.local.get("binds");
+  const data = await browser.storage.local.get("binds");
   document.addEventListener("keydown", (e) => {
     const domain = new URL(window.location.href).hostname;
-    const bound: Bind = binds?.binds?.find(
-      (bind: Bind) => bind.key === e.key && bind.domain === domain,
-    );
-    if (!bound) return;
-    const el = document.querySelector(bound.elementSelector);
+    currentChord.push(e.key);
+
+    currentChord.forEach((chord, index) => {
+      if (
+        !data.binds.find(
+          (bind: Bind) => bind.keys[index] === chord && bind.domain === domain,
+        )
+      ) {
+        currentChord = [];
+        return;
+      }
+    });
+
+    const matched = data.binds.find((bind: Bind) => {
+      return (
+        bind.keys.every((chord, index) => chord === currentChord[index]) &&
+        bind.domain === domain
+      );
+    });
+
+    if (!matched) return;
+
+    const el = document.querySelector(matched.selector);
     if (!el) return;
     (el as HTMLElement).click();
+    currentChord = [];
   });
 }

@@ -1,6 +1,6 @@
 export interface Bind {
   id: string;
-  elementSelector: string;
-  key: string;
+  selector: string;
+  keys: string[];
   domain: string;
 }

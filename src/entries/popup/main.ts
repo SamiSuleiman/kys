@@ -20,10 +20,12 @@ async function init() {
   document.querySelector("#app")!.innerHTML = `
     <div class="form">
       <div class="form__input__container">
-        <input type="text" class="form__input-selector" placeholder="Selector" required></input>
-        <input type="text" class="form__input-keybind" placeholder="Keybind" required pattern="[A-Za-z0-9]{1,}"></input>
-      <button class="form__add-btn" type="button">Add</button>
+        <label for="selector">Selector</label>
+        <input type="text" class="form__input-selector" placeholder="ex.: \`button.mdc-icon-button:nth-child(3)\`" required></input>
+        <label for="keybind">Keybind</label>
+        <input type="text" class="form__input-keybind" placeholder="ex.: \`g Enter\` or \`x\`" required pattern="[A-Za-z0-9 ]{1,}"></input>
       </div>
+      <button class="form__add-btn" type="button">Add</button>
       <span class="form__error-msg hidden">Invalid input(s)</span>
     </div>
     <div class="binds__container">
@@ -54,29 +56,31 @@ async function init() {
       return;
     }
 
-    const binds = await browser.storage.local.get("binds");
+    const data = await browser.storage.local.get("binds");
+    const currTab = (
+      await browser.tabs.query({ active: true, currentWindow: true })
+    ).find((tab) => tab.active);
+    const domain = new URL(currTab?.url ?? "")?.hostname;
 
-    if (binds?.binds?.find((bind: Bind) => bind.key === keybindEl.value)) {
+    if (
+      data?.binds?.find(
+        (bind: Bind) =>
+          bind.keys.join(" ") === keybindEl.value && bind.domain === domain,
+      )
+    ) {
       errorEl.textContent = "Bind already exists";
       errorEl.classList.remove("hidden");
       return;
     }
 
-    const currTab = (
-      await browser.tabs.query({ active: true, currentWindow: true })
-    ).find((tab) => tab.active);
-
-    // if (!currTab?.url) return;
-
-    const domain = new URL(currTab?.url ?? "")?.hostname;
     const newBind: Bind = {
       id: Math.random().toString(36),
-      elementSelector: selectorEl.value,
-      key: keybindEl.value,
+      selector: selectorEl.value,
+      keys: keybindEl.value.split(" "),
       domain,
     };
 
-    const newBinds = binds.binds ? [...binds.binds, newBind] : [newBind];
+    const newBinds = data.binds ? [...data.binds, newBind] : [newBind];
     await browser.storage.local.set({ binds: newBinds });
     bindsListEl.appendChild(createBindListItem(newBind));
   });
